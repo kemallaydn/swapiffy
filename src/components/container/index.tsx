@@ -8,19 +8,19 @@ const Container: React.FC<children> = ({ children ,visible=true}) => {
     return (
         Platform.OS == "android"
             ? <View style={styles.container}>
-                <Navbar />
-                <View style={styles.content}>
-                    {children}
-                </View>
-                <Tab />
-            </View>
-            : <SafeAreaView style={styles.container}>
 
                 <View style={styles.content}>
                     {children}
                 </View>
                 {visible && <Tab/>}
-            </SafeAreaView>
+            </View>
+            : <View style={styles.container}>
+
+                <View style={styles.content}>
+                    {children}
+                </View>
+                {visible && <Tab/>}
+            </View>
     )
 }
 export default Container;

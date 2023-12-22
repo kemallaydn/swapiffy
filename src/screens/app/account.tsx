@@ -4,6 +4,8 @@ import Button from "../../components/button";
 import Container from "../../components/container";
 import styles from "../../styles/app/account";
 import NavigationProps from "../../models/navigation.model";
+import Navbar from "../../components/navbar";
+import CustomView from "../../components/customView";
 
 function SignInAccount({ navigation }:NavigationProps) {
   const [selectedButton, setSelectedButton] = useState("Orders");
@@ -12,7 +14,11 @@ function SignInAccount({ navigation }:NavigationProps) {
   };
   return (
     <Container>
+            <Navbar/>
+<CustomView>
+
       <View style={styles.content}>
+        
         <Button
           size="sm"
           title="SİPARİŞLERİM"
@@ -50,6 +56,8 @@ function SignInAccount({ navigation }:NavigationProps) {
         />
       </View>
       <Text style={styles.text}>TAHMİNİ TESLİM TARİHİ</Text>
+      </CustomView>
+
     </Container>
   );
 }

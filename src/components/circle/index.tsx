@@ -1,27 +1,25 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, FlatList, Image, View, ListRenderItem } from 'react-native';
-import buttonModel from "../../models/button.model"
+import { TouchableOpacity, Text, FlatList, Image, View, ListRenderItem } from 'react-native';
 import styles from "./style"
-import getSizeValue from '../../utils/getSizeValue';
 import CardItem, { CardProps } from '../../models/card.model';
 const Circle: React.FC<CardProps> = ({ data }) => {
-    const renderItem: ListRenderItem<CardItem> = ({ item }) => {
+    const renderItem: ListRenderItem<CardItem> = ({ item }: any) => {
         return (
             <TouchableOpacity style={styles.circle}>
-                <Image source={{ uri: item.resim }} style={styles.image} />
-                <Text style={{ textAlign: 'center' ,color:'white'}}>{item.konu}</Text>
+                <Image source={{ uri: item.image }} style={styles.image} />
+                <Text style={{ textAlign: 'center', color: 'white' }}>{item.konu}</Text>
             </TouchableOpacity>
         );
     };
     return (
-        <View style={{borderBottomColor:"white"}}>
+        <View style={{ borderBottomColor: "white", marginHorizontal: '5%' }}>
             <FlatList
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={({ id }) => id.toString()}
-                style={{borderBottomColor:'#804049',borderBottomWidth:0  }}
+                style={{ borderBottomColor: '#804049', borderBottomWidth: 0 }}
                 horizontal
-                contentContainerStyle={{ paddingVertical:'2.3%', marginBottom: '4%' }}
+                contentContainerStyle={{ paddingVertical: '2.3%', marginBottom: '4%' }}
             />
         </View>
     );

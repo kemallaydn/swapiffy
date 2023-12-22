@@ -12,7 +12,7 @@ export default StyleSheet.create({
     buttonText: {
         fontWeight: '400',
         textAlign: "center",
-        paddingVertical: '2%',
+       
         fontSize: 12,
         color: 'white'
     },

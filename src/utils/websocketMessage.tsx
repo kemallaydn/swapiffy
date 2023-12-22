@@ -19,10 +19,8 @@ export const connectWebSocket = async () => {
         // WebSocket bağlantısını aç
         await new Promise<void>((resolve, reject) => {
             stompClient.connect({}, (frame) => {
-                console.log('WebSocket bağlantısı kuruldu:', frame);
                 stompClient.subscribe('/user/1/queue/private', (message) => {
                     const newMessage = JSON.parse(message.body);
-                    console.log("gelen mesaj", newMessage);
 
                 });
             resolve();
@@ -39,7 +37,6 @@ export const connectWebSocket = async () => {
 export const getStompClient = () => stompClient;
 
 export const sendMessage = (text) => {
-    console.log("naber", text)
     const stompClient = getStompClient();
     if (stompClient && stompClient.connected) {
         stompClient.send('/app/sendMessage', {}, JSON.stringify(text));

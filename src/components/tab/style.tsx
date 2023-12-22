@@ -6,9 +6,10 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingVertical:'3%',
-        backgroundColor:'#804049',
-        marginHorizontal:'5%',
-        borderRadius:15,
+        //backgroundColor:'#804049',
+        backgroundColor:'#333333',
+
+
       },
       text:{
         color:'white'

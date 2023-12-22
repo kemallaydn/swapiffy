@@ -6,10 +6,14 @@ import Button from "../../components/button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Text } from "react-native";
 import NavigationProps from "../../models/navigation.model";
+import Navbar from "../../components/navbar";
+import CustomView from "../../components/customView";
 
 function ShoppingCart({ navigation }:NavigationProps) {
     return (
         <Container>
+            <Navbar/>
+            <CustomView>
             <TouchableOpacity onPress={() => { navigation.goBack() }}>
                 <Ionicons name="close" color={"white"} size={20} />
             </TouchableOpacity>
@@ -39,6 +43,7 @@ function ShoppingCart({ navigation }:NavigationProps) {
                     </View>
                 </View>
             </View>
+            </CustomView>
         </Container>
     )
 }

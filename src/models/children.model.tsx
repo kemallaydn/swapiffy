@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface children {
-    children:ReactNode;
+    children?:ReactNode;
     visible?:boolean;
   }
 export default children;

@@ -18,20 +18,12 @@ function Home(){
         setData(await getData())
       }
       useEffect(()=>{
-         asyncExample();
-
-
+        asyncExample();
       },[])
       
     return(
         <Container>
-            <View style={{flexDirection:'row', justifyContent:'space-between',marginBottom:'2%',marginHorizontal:'2%'}}>
-                <Text style={{color:'white',fontSize:25}}>SWAPİFFY</Text>
-                <TouchableOpacity>
-                    <Ionicons name="notifications" color={"white"} size={25}/>
-                </TouchableOpacity>
-
-            </View>
+            <Navbar title="SWAPİFFY"/>
             <Circle data={data}/>
             <Card  data={data}/>
 

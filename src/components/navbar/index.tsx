@@ -1,11 +1,10 @@
 import { Text, View } from "react-native";
-import Container from "../container";
 import styles from "./style"
 
-function Navbar(){
+function Navbar({title}:any){
     return(
         <View style={styles.container}>
-            <Text style={styles.text}>BookShop</Text>
+            <Text style={styles.text}>{title}</Text>
         </View>
     )
 }
