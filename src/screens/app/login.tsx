@@ -11,8 +11,8 @@ import CustomView from "../../components/customView";
 import Navbar from "../../components/navbar";
 function Account({navigation}:any){
     const [formData, setFormData] = useState({
-        email: '',
-        password: '',
+        email: 'Kemal',
+        password: 'Aydın',
    
     });
     const handleChange = (name, value) => {
