@@ -20,7 +20,7 @@ function Account({navigation}:any){
     };
     const {authDispatch}=useContext(GlobalContext);
     const  login=async()=>{
-       await axiosInstance.post("auth/login",formData).then((res)=>{
+       await axiosInstance.post("http://localhost:8080/v1/auth/login",formData).then((res)=>{
         authDispatch({
             type: "LOGIN_SUCCESS",
             payload: res.data

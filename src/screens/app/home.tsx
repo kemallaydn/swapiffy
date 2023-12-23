@@ -11,23 +11,27 @@ import getData from "../../utils/getData";
 import Card from "../../components/card";
 import Circle from "../../components/circle";
 import Ionicons from "react-native-vector-icons/Ionicons";
-function Home(){
-    const [data,setData]=useState([]);
-    const [resim,setResim]=useState([]);
-    async function asyncExample() {      
-        setData(await getData())
-      }
-      useEffect(()=>{
-        asyncExample();
-      },[])
-      
-    return(
-        <Container>
-            <Navbar title="SWAPİFFY"/>
-            <Circle data={data}/>
-            <Card  data={data}/>
+import { context } from "../../context";
+function Home() {
 
-        </Container>
-    )
+  const [data, setData] = useState([]);
+  const [resim, setResim] = useState([]);
+ 
+  async function asyncExample() {
+    setData(await getData())
+  }
+  useEffect(() => {
+    asyncExample();
+    
+  }, [])
+
+  return (
+    <Container>
+      <Navbar title="SWAPİFFY" />
+      <Circle data={data} />
+      <Card data={data} />
+
+    </Container>
+  )
 }
 export default Home;

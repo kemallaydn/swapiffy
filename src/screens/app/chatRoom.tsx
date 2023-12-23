@@ -4,18 +4,16 @@ import Navbar from "../../components/navbar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomView from "../../components/customView";
 import { useEffect, useState } from "react";
-
 function ChatRoom() {
     const [currentTime, setCurrentTime] = useState(new Date());
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(intervalId);
-}, []);
-const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+        return () => clearInterval(intervalId);
+    }, []);
+    const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     return (
         <Container>
             <Navbar title="Sohbetler" />
@@ -25,13 +23,14 @@ const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minu
                     <TextInput placeholder="Ara" />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ alignItems: 'center', justifyContent: 'center' ,height:50,width:50}}>
-                        <Image source={{ uri: "https://picsum.photos/200/300?grayscale" }} style={{width: '100%',height: '100%',borderRadius: 50,borderWidth: 1
+                    <View style={{ alignItems: 'center', justifyContent: 'center', height: 50, width: 50 }}>
+                        <Image source={{ uri: "https://picsum.photos/200/300?grayscale" }} style={{
+                            width: '100%', height: '100%', borderRadius: 50, borderWidth: 1
                         }} />
                     </View>
-                    <View style={{flex:5,justifyContent:'center',paddingLeft:'5%'}}>
-                        <Text>Kemal</Text>
-                        <Text style={{fontWeight:"200"}}>Kemal</Text>
+                    <View style={{ flex: 5, justifyContent: 'center', paddingLeft: '5%' }}>
+                        <Text style={{ fontWeight: "600",fontSize:20 }}>Kemal</Text>
+                        <Text style={{ fontWeight: "200" }}>Selam</Text>
                     </View>
                     <View>
                         <Text>{formattedTime}</Text>
