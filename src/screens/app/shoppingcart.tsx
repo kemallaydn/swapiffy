@@ -11,6 +11,7 @@ import CustomView from "../../components/customView";
 import { FlatList } from "react-native";
 import getData from "../../utils/getData";
 import { context } from "../../context";
+import { useFocusEffect } from "@react-navigation/native";
 
 function ShoppingCart({ navigation }: NavigationProps) {
     const { favoriteState, sepetState, sepetDispacth, favoritesDispacth } = context();
@@ -22,7 +23,7 @@ function ShoppingCart({ navigation }: NavigationProps) {
     }
     useEffect(() => {
         if (select) {
-            setData(sepetState.sepet[0])
+            setData(sepetState.sepet)
         }
         else {
             setData(favoriteState.favorite)
