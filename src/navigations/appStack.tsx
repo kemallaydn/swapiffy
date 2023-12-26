@@ -8,6 +8,7 @@ import ShoppingCart from "../screens/app/shoppingcart";
 import Chat from "../screens/app/chat";
 import { GlobalContext } from "../context";
 import ChatRoom from "../screens/app/chatRoom";
+import Favorites from "../screens/app/favorites";
 const Stack = createNativeStackNavigator();
 function appStack() {
     const {authState: {isLoggedIn}}=useContext(GlobalContext);
@@ -19,6 +20,7 @@ function appStack() {
             <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
             <Stack.Screen name="chat" component={Chat} />
             <Stack.Screen name="chatRoom" component={ChatRoom} />
+            <Stack.Screen name="favorites" component={Favorites} />
         </Stack.Navigator>
     )
 }

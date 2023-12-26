@@ -1,18 +1,23 @@
 import React, { ReactNode, createContext, useContext, useReducer } from "react";
 import authInitialState from './İnitialState/AuthState';
 import favoriteInitialState from './İnitialState/favorites';
-import auth from './Reducer/Auth';
 import favoritesState from './Reducer/favorites';
+import sepetInitialState from './İnitialState/sepet';
+import sepetsState from './Reducer/sepet';
+import auth from './Reducer/Auth';
 import children from "../models/children.model"
 export const GlobalContext = createContext({});
 const Provider: React.FC<children> = ({ children }) => {
     const [authState, authDispatch] = useReducer(auth, authInitialState);
     const [favoriteState, favoritesDispacth] = useReducer(favoritesState, favoriteInitialState);
+    const [sepetState, sepetDispacth] = useReducer(sepetsState, sepetInitialState);
     const value = {
         authState,
         authDispatch,
         favoriteState,
-        favoritesDispacth
+        favoritesDispacth,
+        sepetState,
+        sepetDispacth
     }
     return (
         <GlobalContext.Provider value={value}>

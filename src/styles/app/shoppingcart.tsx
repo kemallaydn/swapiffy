@@ -7,6 +7,7 @@ export default StyleSheet.create({
     },
     contentShop:{
         flexDirection:'row',
+        height:200
     },
     text: {
         color:'white',
@@ -22,7 +23,7 @@ export default StyleSheet.create({
         borderWidth:0.5,
         borderColor:'white',
         flex:1,
-        height:'55%',
+        height:'100%',
     },
     image:{
         height:'100%',

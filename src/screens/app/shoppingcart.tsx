@@ -8,41 +8,96 @@ import { Text } from "react-native";
 import NavigationProps from "../../models/navigation.model";
 import Navbar from "../../components/navbar";
 import CustomView from "../../components/customView";
+import { FlatList } from "react-native";
+import getData from "../../utils/getData";
+import { context } from "../../context";
 
-function ShoppingCart({ navigation }:NavigationProps) {
-    return (
-        <Container>
-            <Navbar/>
-            <CustomView>
-            <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                <Ionicons name="close" color={"white"} size={20} />
-            </TouchableOpacity>
-            <View style={styles.content}>
-                <Button size="sm" title="Alışveriş Sepeti" style={styles.button} />
-                <Button size="sm" title="Favoriler" style={styles.button} />
-            </View>
+function ShoppingCart({ navigation }: NavigationProps) {
+    const { favoriteState, sepetState, sepetDispacth, favoritesDispacth } = context();
+    const [select, setSelect] = useState(true);
+    const [data, setData] = useState([]);
+    const [resim, setResim] = useState([]);
+    async function asyncExample() {
+        setData(await getData())
+    }
+    useEffect(() => {
+        if (select) {
+            setData(sepetState.sepet[0])
+        }
+        else {
+            setData(favoriteState.favorite)
+        }
+    }, [select, favoriteState.favorite, sepetState.sepet])
+
+    const renderİtem = ({ item }) => {
+        return (
             <View style={styles.contentShop}>
                 <View style={styles.context}>
-                    <Image source={{ uri: "https://picsum.photos/id/0/5000/3333" }} style={styles.image} />
+                    <Image source={{ uri: item.product ? item.product.image : item.image }} style={styles.image} />
                 </View>
                 <View style={styles.context}>
-                    <TouchableOpacity onPress={() => { navigation.goBack()}} style={{alignItems:'flex-end',margin:'5%'}}>
-                        <Ionicons name="close" color={"white"} size={20} />
+                    <TouchableOpacity onPress={() => {
+                        if (select) {
+                            sepetDispacth({
+                                type: "CIKAR",
+                                payload: {
+                                    urunId: item.urunId
+                                }
+                            })
+                        } else {
+                            favoritesDispacth({
+                                type: "CIKAR",
+                                payload: {
+                                    urunId: item.urunId
+                                }
+                            })
+                        }
+                        console.log(sepetState)
+                        console.log(item.urunId)
+                    }} style={{ alignItems: 'flex-end', margin: '5%' }} onPressIn={() => {
+
+                    }}>
+                        <Ionicons name="close" color={"pink"} size={20} />
                     </TouchableOpacity>
-                    <View style={{flex:1}}>
+                    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                         <Text style={styles.text}>Karayip Korsanları</Text>
                         <Text style={styles.text}>122.23 TL</Text>
                     </View>
-                    <View style={{flexDirection:'row',margin:'5%'}}>
-                        <Button size="sm" title="-" style={{paddingHorizontal:'6%'}} />
-                        <View style={{justifyContent:'center',alignItems:'center',borderColor:'white',borderWidth:1,paddingHorizontal:'7%'}}>
+                    {select && <View style={{ flexDirection: 'row', margin: '5%' }}>
+                        <Button size="sm" title="-" style={{ paddingHorizontal: '6%' }} />
+                        <View style={{ justifyContent: 'center', alignItems: 'center', borderColor: 'white', borderWidth: 1, paddingHorizontal: '7%' }}>
 
-                        <Text style={[{color:'white'}]}>1</Text>
+                            <Text style={[{ color: 'white' }]}>{item.adet}</Text>
                         </View>
-                        <Button size="sm" title="+" style={{paddingHorizontal:'6%'}} />
-                    </View>
+                        <Button size="sm" title="+" style={{ paddingHorizontal: '6%' }} />
+                    </View>}
                 </View>
             </View>
+
+        )
+    }
+    return (
+        <Container>
+            <Navbar />
+            <CustomView>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <Ionicons name="close" color={"white"} size={20} />
+                </TouchableOpacity>
+                <View style={styles.content}>
+                    <Button size="sm" title="Alışveriş Sepeti" style={styles.button} onPress={() => {
+                        setSelect(true)
+                    }} />
+                    <Button size="sm" title="Favoriler" style={styles.button} onPress={() => {
+                        setSelect(false)
+                    }} />
+                </View>
+                <FlatList
+                    data={data}
+                    renderItem={renderİtem}
+                    keyExtractor={(item) => item.product ? item.product.id : item.urunId}
+                    style={{ marginHorizontal: '0.5%' }}
+                />
+
             </CustomView>
         </Container>
     )
