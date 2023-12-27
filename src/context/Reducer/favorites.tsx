@@ -6,7 +6,7 @@ const favorites = (state: any, { type, payload }: any) => {
         favorite: [...state.favorite, payload], // Yeni objeyi ekleyerek diziyi güncelle
       };
     case "CIKAR":
-      return { ...state, favorite: state.favorite.filter(item => item.urunId !== payload.urunId) };
+      return { ...state, favorite: state.favorite.filter(item => item.product.urunId !== payload.product.urunId) };
     default:
       return state;
   }

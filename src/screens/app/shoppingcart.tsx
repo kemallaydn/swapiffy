@@ -12,9 +12,10 @@ import { FlatList } from "react-native";
 import getData from "../../utils/getData";
 import { context } from "../../context";
 import { useFocusEffect } from "@react-navigation/native";
+import { deleteProduct, updateProduct } from "../../context/action/addProduct";
 
 function ShoppingCart({ navigation }: NavigationProps) {
-    const { favoriteState, sepetState, sepetDispacth, favoritesDispacth } = context();
+    const { favoriteState, sepetState, sepetDispacth, favoritesDispacth, authState } = context();
     const [select, setSelect] = useState(true);
     const [data, setData] = useState([]);
     const [resim, setResim] = useState([]);
@@ -31,6 +32,7 @@ function ShoppingCart({ navigation }: NavigationProps) {
     }, [select, favoriteState.favorite, sepetState.sepet])
 
     const renderİtem = ({ item }) => {
+
         return (
             <View style={styles.contentShop}>
                 <View style={styles.context}>
@@ -39,12 +41,7 @@ function ShoppingCart({ navigation }: NavigationProps) {
                 <View style={styles.context}>
                     <TouchableOpacity onPress={() => {
                         if (select) {
-                            sepetDispacth({
-                                type: "CIKAR",
-                                payload: {
-                                    urunId: item.urunId
-                                }
-                            })
+                            deleteProduct({ kullaniciId: authState.data.authenticatedUser.id, urunId: item.product.id, adet: item.adet })(sepetDispacth);
                         } else {
                             favoritesDispacth({
                                 type: "CIKAR",
@@ -53,8 +50,7 @@ function ShoppingCart({ navigation }: NavigationProps) {
                                 }
                             })
                         }
-                        console.log(sepetState)
-                        console.log(item.urunId)
+
                     }} style={{ alignItems: 'flex-end', margin: '5%' }} onPressIn={() => {
 
                     }}>
@@ -65,12 +61,16 @@ function ShoppingCart({ navigation }: NavigationProps) {
                         <Text style={styles.text}>122.23 TL</Text>
                     </View>
                     {select && <View style={{ flexDirection: 'row', margin: '5%' }}>
-                        <Button size="sm" title="-" style={{ paddingHorizontal: '6%' }} />
+                        <Button size="sm" title="-" style={{ paddingHorizontal: '6%' }} onPress={() => {
+                            updateProduct({ kullaniciId: authState.data.authenticatedUser.id, urunId: item.product.id, adet: -1 })(sepetDispacth);
+                        }} />
                         <View style={{ justifyContent: 'center', alignItems: 'center', borderColor: 'white', borderWidth: 1, paddingHorizontal: '7%' }}>
 
                             <Text style={[{ color: 'white' }]}>{item.adet}</Text>
                         </View>
-                        <Button size="sm" title="+" style={{ paddingHorizontal: '6%' }} />
+                        <Button size="sm" title="+" style={{ paddingHorizontal: '6%' }} onPress={() => {
+                            updateProduct({ kullaniciId: authState.data.authenticatedUser.id, urunId: item.product.id, adet: 1 })(sepetDispacth);
+                        }} />
                     </View>}
                 </View>
             </View>
@@ -96,7 +96,14 @@ function ShoppingCart({ navigation }: NavigationProps) {
                     data={data}
                     renderItem={renderİtem}
                     keyExtractor={(item) => item.product ? item.product.id : item.urunId}
-                    style={{ marginHorizontal: '0.5%' }}
+                    style={{ marginHorizontal: '0.5%'}}
+                    ListEmptyComponent={() => {
+                        return (
+                            <View style={{flex:1,  justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: 'white' }}>Sepetiniz Boş</Text>
+                            </View>
+                        );
+                    }}
                 />
 
             </CustomView>

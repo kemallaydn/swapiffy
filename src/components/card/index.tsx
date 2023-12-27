@@ -11,7 +11,7 @@ const Card: React.FC<CardProps> = ({ data }) => {
     const [sepet, setSepet] = useState({ urunId: '', userId: '', image: "", adet: 1 });
     const { favoritesDispacth, favoriteState, authState, sepetDispacth, sepetState } = context();
     const isFavorite = favoriteState.favorite.some(item => item.urunId === favorites.urunId);
-    const isUrun = sepetState.sepet.some(item => item.urunId === sepet.urunId);
+
     useEffect(() => {
 
         // Check if favorites.urunId exists in favoriteState.favorite array
