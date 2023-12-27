@@ -6,7 +6,7 @@ import styles from "../../styles/auth/account"
 import NavigationProps from "../../models/navigation.model";
 import axiosInstance from "../../utils/axiosInstance";
 import axios from "axios";
-import { GlobalContext } from "../../context";
+import { GlobalContext, context } from "../../context";
 import CustomView from "../../components/customView";
 import Navbar from "../../components/navbar";
 function Account({navigation}:any){
@@ -18,14 +18,22 @@ function Account({navigation}:any){
     const handleChange = (name, value) => {
         setFormData({ ...formData, [name]: value });
     };
-    const {authDispatch}=useContext(GlobalContext);
+    const {authDispatch,sepetDispacth}=context();
     const  login=async()=>{
-       await axiosInstance.post("http://localhost:8080/v1/auth/login",formData).then((res)=>{
+       await axiosInstance.post("http://localhost:8080/v1/auth/login",formData).then(async(res)=>{
+        await axiosInstance.post("http://localhost:8080/v1/api/card/getCard",{
+            kullaniciId:res.data.authenticatedUser.id
+        }).then((res)=>{
+            sepetDispacth({
+                type: "ADD_SUCCES",
+                payload: res.data
+              })
+        })
         authDispatch({
             type: "LOGIN_SUCCESS",
             payload: res.data
           })
-        console.log(res.data)
+
        }).catch((err)=>{
         console.log(err);
        })

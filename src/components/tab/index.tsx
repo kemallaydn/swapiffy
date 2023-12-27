@@ -18,7 +18,7 @@ const Tab:React.FC<TabProps> = ({ label, onPress, isSelected}) => {
         navigate("chatRoom")
         break;
       case 2:
-        navigate("account")
+        navigate("favorites")
         break;
       case 3:
         navigate("ShoppingCart")
