@@ -8,7 +8,7 @@ export default StyleSheet.create({
         paddingTop:'10%',
     },
     text: {
-        color: 'white',
+        color: 'black',
         textAlign:"center",
         fontSize:25
     },

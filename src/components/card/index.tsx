@@ -62,13 +62,13 @@ const Card: React.FC<CardProps> = ({ data }) => {
                     <TouchableOpacity style={{ position: 'absolute', left: '45%', bottom: 5 }} onPress={() => {
                        sepetekle(item.id)
                     }}>
-                        <Ionicons name='add-circle-outline' size={25} color="white" />
+                        <Ionicons name='repeat' size={25} color="white" />
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: '2%', alignItems: 'center' }}>
                     <View>
                         <Text style={styles.buttonText} ellipsizeMode="tail">{item.ad}</Text>
-                        <Text style={styles.buttonText}>{item.price} TL</Text>
+                        <Text style={styles.buttonText}>{item.price} </Text>
                     </View>
                     <View>
                         <TouchableOpacity style={{ paddingTop: "30%" }} onPress={() => {

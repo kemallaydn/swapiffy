@@ -78,34 +78,37 @@ function ShoppingCart({ navigation }: NavigationProps) {
         )
     }
     return (
-        <Container>
-            <Navbar />
+        <Container isScroll={false}>
             <CustomView>
                 <TouchableOpacity onPress={() => { navigation.goBack() }}>
                     <Ionicons name="close" color={"white"} size={20} />
                 </TouchableOpacity>
                 <View style={styles.content}>
-                    <Button size="sm" title="Alışveriş Sepeti" style={styles.button} onPress={() => {
-                        setSelect(true)
-                    }} />
-                    <Button size="sm" title="Favoriler" style={styles.button} onPress={() => {
-                        setSelect(false)
-                    }} />
+                    <Button size="sm" title="Alışveriş Sepeti"
+                        textStyle={select ? { fontWeight: '400' } : { color: '#7E8087' }}
+                        style={styles.button} onPress={() => {
+                            setSelect(true)
+                        }} />
+                    <Button size="sm" title="Favoriler"
+                        textStyle={!select ? { fontWeight: '400' } : { color: '#7E8087' }}
+
+                        style={styles.button} onPress={() => {
+                            setSelect(false)
+                        }} />
                 </View>
                 <FlatList
                     data={data}
                     renderItem={renderİtem}
                     keyExtractor={(item) => item.product ? item.product.id : item.urunId}
-                    style={{ marginHorizontal: '0.5%'}}
+                    style={{ marginHorizontal: '0.5%' }}
                     ListEmptyComponent={() => {
                         return (
-                            <View style={{flex:1,  justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ color: 'white' }}>Sepetiniz Boş</Text>
                             </View>
                         );
                     }}
                 />
-
             </CustomView>
         </Container>
     )

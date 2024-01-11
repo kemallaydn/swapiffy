@@ -12,19 +12,18 @@ export const connectWebSocket = async () => {
             return;
         }
 
-        // WebSocket bağlantısı oluşturuluyor ("/ws" endpoint'ini kullanıyoruz)
         const socket = new SockJS('http://localhost:8080/ws');
         stompClient = Stomp.over(socket);
 
         // WebSocket bağlantısını aç
         await new Promise<void>((resolve, reject) => {
-            stompClient.connect({}, (frame) => {
-                stompClient.subscribe('/user/1/queue/private', (message) => {
+            stompClient.connect({}, (_frame: any) => {
+                stompClient.subscribe('/user/1/queue/private', (message: Stomp.Message) => {
                     const newMessage = JSON.parse(message.body);
 
                 });
             resolve();
-            }, (error) => {
+            }, (error: any) => {
                 console.error('WebSocket bağlantı hatası:', error);
                 reject(error);
             });
@@ -36,7 +35,7 @@ export const connectWebSocket = async () => {
 
 export const getStompClient = () => stompClient;
 
-export const sendMessage = (text) => {
+export const sendMessage = (text: string) => {
     const stompClient = getStompClient();
     if (stompClient && stompClient.connected) {
         stompClient.send('/app/sendMessage', {}, JSON.stringify(text));

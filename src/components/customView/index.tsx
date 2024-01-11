@@ -2,7 +2,11 @@ import { View } from "react-native";
 
 function CustomView({children}:any){
     return(
-        <View style={{paddingHorizontal:"3%" ,flex:1}}>
+        <View style={{
+            flex:1,
+            marginTop:'5%',
+            paddingHorizontal:"3%" ,
+            }}>
             {children}
         </View>
     )

@@ -12,6 +12,7 @@ import Card from "../../components/card";
 import Circle from "../../components/circle";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { context } from "../../context";
+import SwapModal from "../../components/swapModal";
 function Home() {
 
   const [data, setData] = useState([]);
@@ -26,8 +27,8 @@ function Home() {
   }, [])
 
   return (
-    <Container>
-      <Navbar title="SWAPİFFY" />
+    <Container isScroll={false}>
+      <SwapModal/>
       <Circle data={data} />
       <Card data={data} />
 

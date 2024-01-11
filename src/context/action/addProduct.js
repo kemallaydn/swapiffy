@@ -4,7 +4,6 @@ import axiosInstance from "../../utils/axiosInstance"
 
 export const addProduct = (product) => (sepetDispacth)=> {
     axiosInstance.post("v1/api/card/addCard",product).then(async(res) => {
-
        await sepetDispacth({
             type:"ADD_SUCCES",
             payload:res.data

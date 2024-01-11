@@ -28,7 +28,7 @@ function SignUp({ navigation }: any) {
     };
     return (
         <Container>
-            <Navbar />
+
             <CustomView>
                 <TouchableOpacity onPress={() => { navigation.navigate("account") }}>
                     <Ionicons name="arrow-back-outline" color={"white"} size={15} />

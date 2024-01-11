@@ -16,7 +16,7 @@ function ChatRoom() {
     const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     return (
         <Container>
-            <Navbar title="Sohbetler" />
+            
             <CustomView>
                 <View style={{ alignItems: 'center', backgroundColor: "#7E8087", flexDirection: "row", borderRadius: 20, padding: '2%', marginVertical: '5%' }}>
                     <Ionicons name="search" size={20} color={"white"} style={{ paddingRight: '2%' }} />

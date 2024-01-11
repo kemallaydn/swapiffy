@@ -7,7 +7,8 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         alignItems: 'center',
         borderWidth:1,
-        borderColor:'white'
+        borderColor:'white',
+
     },
     buttonText: {
         color: 'white',
