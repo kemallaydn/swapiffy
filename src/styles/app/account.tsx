@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
     button:{
         marginRight:'2%',
-        marginTop:'2.5%',
+        marginBottom:'2.5%',
 
     }
 })

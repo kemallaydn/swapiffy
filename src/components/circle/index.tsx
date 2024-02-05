@@ -1,31 +1,29 @@
 import React from 'react';
-import { TouchableOpacity, Text, FlatList, Image, View, ListRenderItem } from 'react-native';
-import styles from "./style"
+import { TouchableOpacity, Text, FlatList, Image, View, ListRenderItem, StyleSheet } from 'react-native';
 import CardItem, { CardProps } from '../../models/card.model';
-import Button from '../button';
+import styles from "./style";
+
 const Circle: React.FC<CardProps> = ({ data }) => {
     const renderItem: ListRenderItem<CardItem> = ({ item }: any) => {
         return (
-            <View style={{
-                flexDirection:'row',
-                flexWrap:'wrap',
-            }}>
-            <Button title={item.price}  style={{flex:1,width:'100%'}}/>
-            </View>
+            <TouchableOpacity style={styles.circleItem}>
+                <Text style={styles.circleItemText}>{item.price}</Text>
+            </TouchableOpacity>
         );
     };
+
     return (
-        <View style={{ borderBottomColor: "white" }}>
+
             <FlatList
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={({ id }) => id.toString()}
-                style={{ borderBottomColor: '#804049', borderBottomWidth: 0,flexDirection:'row',
-                }}
                 horizontal
-                contentContainerStyle={{ paddingVertical: '2.3%', marginBottom: '4%' }}
+                showsHorizontalScrollIndicator={false}
+                style={{paddingHorizontal:'3%',marginRight:'3.5%'}}
             />
-        </View>
+
     );
 };
+
 export default Circle;

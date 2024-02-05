@@ -18,10 +18,6 @@ function ShoppingCart({ navigation }: NavigationProps) {
     const { favoriteState, sepetState, sepetDispacth, favoritesDispacth, authState } = context();
     const [select, setSelect] = useState(true);
     const [data, setData] = useState([]);
-    const [resim, setResim] = useState([]);
-    async function asyncExample() {
-        setData(await getData())
-    }
     useEffect(() => {
         if (select) {
             setData(sepetState.sepet)
@@ -32,7 +28,6 @@ function ShoppingCart({ navigation }: NavigationProps) {
     }, [select, favoriteState.favorite, sepetState.sepet])
 
     const renderİtem = ({ item }) => {
-
         return (
             <View style={styles.contentShop}>
                 <View style={styles.context}>
@@ -80,11 +75,8 @@ function ShoppingCart({ navigation }: NavigationProps) {
     return (
         <Container isScroll={false}>
             <CustomView>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Ionicons name="close" color={"white"} size={20} />
-                </TouchableOpacity>
                 <View style={styles.content}>
-                    <Button size="sm" title="Alışveriş Sepeti"
+                    <Button size="sm" title="İlanlarım"
                         textStyle={select ? { fontWeight: '400' } : { color: '#7E8087' }}
                         style={styles.button} onPress={() => {
                             setSelect(true)
@@ -104,7 +96,7 @@ function ShoppingCart({ navigation }: NavigationProps) {
                     ListEmptyComponent={() => {
                         return (
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ color: 'white' }}>Sepetiniz Boş</Text>
+
                             </View>
                         );
                     }}
