@@ -5,7 +5,10 @@ import TextInput from "../../components/TextInput";
 import Button from "../../components/button";
 import CustomView from "../../components/customView";
 import CustomDropdown from "../../components/dropDown";
+import ImagePickerScreen from "../../components/Image";
+import { useState } from "react";
 function Favorites() {
+  const [selectedImage, setSelectedImage] = useState(false);
   async function onDisplayNotification() {
     // Request permissions (required for iOS)
     await notifee.requestPermission()
@@ -32,20 +35,21 @@ function Favorites() {
   }
 
   return (
-    <Container>
+    <Container >
       <CustomView>
         <Text style={{ fontSize: 15 }}>Ürün Adı</Text>
         <TextInput placeholder="Ürün Adı" />
         <Text style={{ fontSize: 15 }}>Ürün Kategorisi</Text>
         <TextInput placeholder="Ürün Kategorisi" />
         <Text style={{ fontSize: 15 }}>Ürün Resmi</Text>
-        <Button size="sm" title="Resim Seç" onPress={onDisplayNotification} />
+        <ImagePickerScreen visible={selectedImage} setVisible={setSelectedImage}/>
+        <Button size="sm" title="Resim Seç" onPress={()=>{setSelectedImage(true)}} style={{marginVertical:'5%'}}/>
         <Text style={{ fontSize: 15 }}>Ürün Açıklaması</Text>
         <TextInput placeholder="Ürün Açıklaması" />
         <Text style={{ fontSize: 15 }}>Ürün Durumu</Text>
         <CustomDropdown options={["Sıfır","Az Kullanılmış","Kullanılmış","Kötü"]}/>
+      <Button size="sm" title="Takasa Hazır" onPress={onDisplayNotification} style={{marginVertical:'8%'}}/>
       </CustomView>
-      <Button size="lg" title="Takasa Hazır" onPress={onDisplayNotification} />
     </Container>
   );
 }

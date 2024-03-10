@@ -6,6 +6,8 @@ import CardItem, { CardProps } from '../../models/card.model';
 import CustomView from '../customView';
 import { context } from '../../context';
 import { addProduct } from '../../context/action/addProduct';
+import SwapModal from '../swapModal';
+
 const Card: React.FC<CardProps> = ({ data }) => {
     const [favorites, setFavorites] = useState({ urunId: '', userId: '', image: "" });
     const [sepet, setSepet] = useState({ urunId: '', userId: '', image: "", adet: 1 });
@@ -13,17 +15,13 @@ const Card: React.FC<CardProps> = ({ data }) => {
     const isFavorite = favoriteState.favorite.some(item => item.urunId === favorites.urunId);
 
     useEffect(() => {
-
-        // Check if favorites.urunId exists in favoriteState.favorite array
         if (favorites.urunId) {
             if (isFavorite) {
-                // If it exists, remove it
                 favoritesDispacth({
                     type: "CIKAR",
                     payload: favorites
                 });
             } else {
-                // If it doesn't exist, add it
                 favoritesDispacth({
                     type: "EKLE",
                     payload: favorites
@@ -31,9 +29,8 @@ const Card: React.FC<CardProps> = ({ data }) => {
             }
         }
     }, [favorites]);
- 
     
-    const favoriekle = (id, image) => {
+    const favoriekle = (id: string, image: string) => {
         if (authState.data.authenticatedUser != null) {
             setFavorites({
                 ...favorites,
@@ -41,26 +38,26 @@ const Card: React.FC<CardProps> = ({ data }) => {
                 userId: authState.data.authenticatedUser.id,
                 image: image
             })
-        }
-        else {
+        } else {
             Alert.alert("Giriş")
         }
     }
-    const sepetekle = (id) => {
+
+    const sepetekle = (id: string) => {
         if (authState.data.authenticatedUser != null) {
-             addProduct({kullaniciId:authState.data.authenticatedUser.id,urunId:id,adet:1})(sepetDispacth)
-        }
-        else {
+            addProduct({ kullaniciId: authState.data.authenticatedUser.id, urunId: id, adet: 1 })(sepetDispacth)
+        } else {
             Alert.alert("Giriş")
         }
     }
+
     const renderItem: ListRenderItem<CardItem> = ({ item }: any) => {
         return (
             <View style={styles.container}>
                 <View style={styles.imageContent}>
                     <Image source={{ uri: item.image }} style={styles.image} />
                     <TouchableOpacity style={{ position: 'absolute', left: '45%', bottom: 5 }} onPress={() => {
-                       sepetekle(item.id)
+                        sepetekle(item.id)
                     }}>
                         <Ionicons name='repeat' size={25} color="white" />
                     </TouchableOpacity>
@@ -81,15 +78,18 @@ const Card: React.FC<CardProps> = ({ data }) => {
             </View>
         );
     };
+
     return (
-        <CustomView>
+        
             <FlatList
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={({ id }) => id.toString()}
                 numColumns={2}
+                showsVerticalScrollIndicator={false}
+                style={{ marginHorizontal: '3%',paddingTop:'3%'}}
             />
-        </CustomView>
+       
     );
 };
 

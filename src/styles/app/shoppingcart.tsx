@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     content: {
        flexDirection:'row',
-       marginTop:'5%'
+
     },
     contentShop:{
         flexDirection:'row',

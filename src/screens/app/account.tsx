@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Button from "../../components/button";
 import Container from "../../components/container";
@@ -6,8 +6,10 @@ import styles from "../../styles/app/account";
 import NavigationProps from "../../models/navigation.model";
 import Navbar from "../../components/navbar";
 import CustomView from "../../components/customView";
+import { GlobalContext } from "../../context";
 
 function SignInAccount({ navigation }: NavigationProps) {
+  const {authDispatch} = useContext(GlobalContext)
   const [selectedButton, setSelectedButton] = useState("Orders");
   const handleButtonPress = (buttonName: string) => {
     setSelectedButton(buttonName);
@@ -42,7 +44,12 @@ function SignInAccount({ navigation }: NavigationProps) {
             title="ÇIKIŞ YAP"
             style={styles.button}
             textStyle={selectedButton === "ÇIKIŞ YAP" ? { fontWeight: '400' } : { color: '#7E8087' }}
-            onPress={() => handleButtonPress("ÇIKIŞ YAP")}
+            onPress={() => {
+              authDispatch({
+                type: "LOGOUT_USER",
+              })
+
+            }}
           />
         </View>
       </CustomView>
