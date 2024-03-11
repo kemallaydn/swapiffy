@@ -34,7 +34,6 @@ const Tab:React.FC<TabProps> = ({ label, onPress, isSelected}) => {
     <View style={styles.container}>
       {tabItems2.map((item,index)=>(
           <TouchableOpacity key={index} onPress={()=>press(index)}>
-           
             {
               item =="+" ? <Ionicons name="add-sharp" size={25} color={"white"}/>: <Text style={styles.text}>{item}</Text>
             }

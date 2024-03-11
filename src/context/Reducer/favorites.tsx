@@ -3,10 +3,10 @@ const favorites = (state: any, { type, payload }: any) => {
     case "EKLE":
       return {
         ...state,
-        favorite: [...state.favorite, payload], // Yeni objeyi ekleyerek diziyi güncelle
+        favorite: [...state.favorite, payload],
       };
     case "CIKAR":
-      return { ...state, favorite: state.favorite.filter(item => item.product.urunId !== payload.product.urunId) };
+      return { ...state, favorite: state.favorite.filter(item => item.urunId !== payload.urunId) };
     default:
       return state;
   }

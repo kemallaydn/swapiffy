@@ -1,12 +1,12 @@
-import { Image, ScrollView, Text, TextInput, View } from "react-native";
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Container from "../../components/container";
 import Navbar from "../../components/navbar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomView from "../../components/customView";
 import { useEffect, useState } from "react";
-function ChatRoom() {
+function ChatRoom(props: any) {
     const [currentTime, setCurrentTime] = useState(new Date());
-
+    const { navigation } = props;
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentTime(new Date());
@@ -22,7 +22,9 @@ function ChatRoom() {
                     <TextInput placeholder="Ara" placeholderTextColor={"black"} />
                 </View>
                 <ScrollView>
-                    <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity style={{ flexDirection: 'row',backgroundColor:"#7E8087",padding:'2%',borderRadius:20 }} onPress={()=>{
+                        navigation.navigate("chat")
+                    }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', height: 50, width: 50 }}>
                             <Image source={{ uri: "https://picsum.photos/200/300?grayscale" }} style={{
                                 width: '100%', height: '100%', borderRadius: 50, borderWidth: 1
@@ -32,10 +34,11 @@ function ChatRoom() {
                             <Text style={{ fontWeight: "600", fontSize: 20 }}>Kemal</Text>
                             <Text style={{ fontWeight: "300" }}>Selam</Text>
                         </View>
-                        <View>
+                        <View style={{justifyContent:"center",alignItems:'center'}}>
                             <Text>{formattedTime}</Text>
+                            <Ionicons name="checkmark-done" size={20} color={"black"} />
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 </ScrollView>
             </CustomView>
         </Container>

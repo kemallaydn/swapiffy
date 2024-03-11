@@ -22,7 +22,7 @@ function Chat({ navigation }: any) {
     useEffect(() => {
         setMessages({ ...messages, senderId: id, recipientId: id==1 ? "2" : "1"  })
         const initializeWebSocket = async () => {
-            const socket = new SockJS('http://192.168.1.102:8080/ws');
+            const socket = new SockJS('http://192.168.1.103:8080/ws');
             const client = Stomp.over(socket);
             client.connect(
                 {},
@@ -62,9 +62,9 @@ function Chat({ navigation }: any) {
         )
     }
     return (
-        <Container visible={false}>
+        <Container isScroll={false} visible={false}>
             <CustomView>
-                <Navbar/>
+
             <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#4D4D4D', paddingBottom: '2%' }}>
                 <TouchableOpacity onPress={() => { navigation.goBack() }} style={{ flex: 1 }}>
                     <Ionicons name="chevron-back-sharp" color={"white"} size={30} />
@@ -86,9 +86,9 @@ function Chat({ navigation }: any) {
                     renderItem={renderItem}
 
                 />
-            <KeyboardAvoidingView behavior={'padding'} style={{  }} keyboardVerticalOffset={0}>
+            <KeyboardAvoidingView behavior={'padding'} style={{  }} keyboardVerticalOffset={80}>
 
-                <View style={{ borderRadius: 0, backgroundColor: '#4D4D4D',marginHorizontal: '-5%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '-10%', paddingBottom: '13%',padding:'2%' }}>
+                <View style={{ borderRadius: 0, backgroundColor: '#4D4D4D',marginHorizontal: '-5%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: '-3%', paddingBottom: '13%',padding:'2%' }}>
                     <TouchableOpacity onPress={() => { navigation.goBack() }} style={{ marginHorizontal: '1%' }}>
                         <Ionicons name="add-sharp" color={"white"} size={23} />
                     </TouchableOpacity>

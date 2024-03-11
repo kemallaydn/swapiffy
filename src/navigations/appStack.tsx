@@ -8,7 +8,7 @@ import ShoppingCart from "../screens/app/shoppingcart";
 import Chat from "../screens/app/chat";
 import { GlobalContext } from "../context";
 import ChatRoom from "../screens/app/chatRoom";
-import Favorites from "../screens/app/favorites";
+import Favorites from "../screens/app/addAdvert";
 const Stack = createNativeStackNavigator();
 function appStack() {
     const {authState: {isLoggedIn}}=useContext(GlobalContext);
