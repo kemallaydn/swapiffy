@@ -3,14 +3,13 @@ import { Modal, View, Text, Button, Image, StyleSheet } from 'react-native';
 
 import ImagePicker from 'react-native-image-crop-picker';
 
-const ImagePickerScreen = ({ visible, setVisible }) => {
+const ImagePickerScreen = ({ visible, setVisible,setImageData }) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-
+    const formatData = new FormData();
     const toggleModal = () => {
         setVisible(!visible);
     };
-
     const openCamera = async () => {
         try {
             const image = await ImagePicker.openCamera({
@@ -19,6 +18,7 @@ const ImagePickerScreen = ({ visible, setVisible }) => {
                 cropping: true,
             });
             setSelectedImage(image.path);
+            
             toggleModal();
         } catch (error) {
             console.log(error);
@@ -34,6 +34,13 @@ const ImagePickerScreen = ({ visible, setVisible }) => {
                 multiple: true,
             });
             setSelectedImage(image.path);
+            formatData.append('file', {
+                uri: image[0].path,
+                type: image[0].mime,
+                name: 'image.jpg',
+            });
+            console.log(formatData);
+            setImageData(formatData);
             toggleModal();
         } catch (error) {
             console.log(error);

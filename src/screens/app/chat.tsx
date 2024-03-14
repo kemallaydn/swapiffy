@@ -22,7 +22,7 @@ function Chat({ navigation }: any) {
     useEffect(() => {
         setMessages({ ...messages, senderId: id, recipientId: id==1 ? "2" : "1"  })
         const initializeWebSocket = async () => {
-            const socket = new SockJS('http://192.168.1.103:8080/ws');
+            const socket = new SockJS('http://192.168.1.102:8080/ws');
             const client = Stomp.over(socket);
             client.connect(
                 {},

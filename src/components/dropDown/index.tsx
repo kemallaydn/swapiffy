@@ -37,14 +37,14 @@ const Dropdown: React.FC<DropdownProps> = ({ options }) => {
                 {
                   padding: '1%',
                   borderTopWidth: 1,
-                  shadowColor: '#E5E5E5',
+                  shadowColor: 'black',
                   backgroundColor:
                     hoveredOption !== option ? '#4D4D4D' : '#5D5D5D', // Hover durumunda renk değişimi
 
                 },
               ]}
             >
-              <Text style={{ color: 'black' }}>{option}</Text>
+              <Text style={{ color: 'white' }}>{option}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -69,7 +69,7 @@ padding: '1%',
   },
   dropdownMenu: {
 
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'black',
   },
 });
 

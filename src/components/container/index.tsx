@@ -11,12 +11,10 @@ const Container: React.FC<children> = ({ children, visible = true, isScroll = tr
 
             {isScroll ? (
                 <ScrollView style={{ flex: 1 }}>
-                    <Navbar title="SWAPİFFY" />
                     {children}
                     </ScrollView>
             ) : (
                 <View style={{ flex: 1 }}>
-                    <Navbar title="SWAPİFFY" />
                     {children}
                     </View>
             )}
