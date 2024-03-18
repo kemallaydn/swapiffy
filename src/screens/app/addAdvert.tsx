@@ -8,25 +8,48 @@ import CustomDropdown from "../../components/dropDown";
 import ImagePickerScreen from "../../components/Image";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 function Favorites() {
+  const advertFrom = new FormData();
+  const [advert, setAdvert] = useState({ title: "", category: "", imageurl: null, description: "", status: ""});
   const [imageData, setImageData] = useState(null);
   const [selectedImage, setSelectedImage] = useState(false);
   async function onDisplayNotification() {
-    await axios.post('http://localhost:8080/photos/upload', imageData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      }
+    await axios.post('http://localhost:8080/v1/advertisements/add',  {
+      "title": "furkan",
+      "description": null,
+      "category": null,
+      "location": null,
+      "imageurl": imageData,
+      "status": null,
+      "date": null,
+      "userid": 2
+  }, {
+      
     });
   }
+  const handleChnage = (e: { target: any; }) => {
+    setAdvert({ ...advert, [e.target.name]: e.target.value });
+  }
+  useEffect(()=>{
+    if (imageData!=null) {
+      
+      handleChnage({ target: { name: "imageurl", value: imageData } });
+    }
+  },[imageData])
+  console.log(advert);
   return (
     <Container >
       <CustomView>
         <Text style={{ fontSize: 15 }}>Ürün Adı</Text>
-        <TextInput placeholder="Ürün Adı" handleChange={undefined} />
+        <TextInput placeholder="Ürün Adı" onChangeText={(text) => {
+          handleChnage({ target: { name: "title", value: text } });
+        } } handleChange={undefined} />
         <Text style={{ fontSize: 15 }}>Ürün Kategorisi</Text>
-        <TextInput placeholder="Ürün Kategorisi" handleChange={undefined} />
+        <TextInput placeholder="Ürün Kategorisi" handleChange={undefined} onChangeText={(e)=>{
+          handleChnage({ target: { name: "category", value: e } });
+        }} />
         <Text style={{ fontSize: 15 }}>Ürün Resmi</Text>
         {
           imageData!=null 
@@ -46,7 +69,10 @@ function Favorites() {
          <ImagePickerScreen setImageData={setImageData} visible={selectedImage} setVisible={setSelectedImage}/>
 
         <Text style={{ fontSize: 15 }}>Ürün Açıklaması</Text>
-        <TextInput placeholder="Ürün Açıklaması" handleChange={undefined} />
+        <TextInput placeholder="Ürün Açıklaması" handleChange={undefined} onChangeText={(e)=>{
+          handleChnage({ target: { name: "description", value: e } });
+        
+        }} />
         <Text style={{ fontSize: 15 }}>Ürün Durumu</Text>
         <CustomDropdown options={["Sıfır","Az Kullanılmış","Kullanılmış","Kötü"]}/>
       <Button size="sm" title="Takasa Hazır" onPress={onDisplayNotification} style={{marginVertical:'8%'}}/>

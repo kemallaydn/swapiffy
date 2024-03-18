@@ -9,23 +9,38 @@ import NavigationProps from "../../models/navigation.model";
 import Navbar from "../../components/navbar";
 import CustomView from "../../components/customView";
 import { FlatList } from "react-native";
-import getData from "../../utils/getData";
+import getData from "../../utils/getAdvertisement";
 import { context } from "../../context";
 import { useFocusEffect } from "@react-navigation/native";
 import { deleteProduct, updateProduct } from "../../context/action/addProduct";
+import { findByIdProduct } from '../../services/getAdvertiment';
+import { removeProductFromFavorites } from "../../services/favorites";
+
 
 function ShoppingCart({ navigation }: NavigationProps) {
-    const { favoriteState, sepetState, sepetDispacth, favoritesDispacth, authState } = context();
+    const { favoriteState, favoritesDispacth, authState } = context();
     const [select, setSelect] = useState(true);
     const [data, setData] = useState([]);
+
     useEffect(() => {
-        if (select) {
-            setData(sepetState.sepet)
+        const getProduct = async () => {
+            for (const element of favoriteState.favorite) {
+                const response = await findByIdProduct(element.toString());
+                setData(prev => [...prev, response]);
+            }
         }
-        else {
-            setData(favoriteState.favorite)
-        }
-    }, [select, favoriteState.favorite, sepetState.sepet])
+        getProduct();
+    }, []);
+    const removeProductById = (productIdToRemove) => {
+        // Veriyi güncellemeden önce mevcut veriyi kopyalayın
+        const newData = [...data];
+        // newData içinde productIdToRemove'a sahip olan öğeyi filtreleyerek kaldırın
+        const updatedData = newData.filter(item => item.id !== productIdToRemove);
+      
+        // setData ile güncellenmiş veriyi state'e atayın
+        setData(updatedData);
+      };
+      
 
     const renderİtem = ({ item }) => {
         return (
@@ -35,38 +50,15 @@ function ShoppingCart({ navigation }: NavigationProps) {
                 </View>
                 <View style={styles.context}>
                     <TouchableOpacity onPress={() => {
-                        if (select) {
-                            deleteProduct({ kullaniciId: authState.data.authenticatedUser.id, urunId: item.product.id, adet: item.adet })(sepetDispacth);
-                        } else {
-                            favoritesDispacth({
-                                type: "CIKAR",
-                                payload: {
-                                    urunId: item.urunId
-                                }
-                            })
-                        }
-
-                    }} style={{ alignItems: 'flex-end', margin: '5%' }} onPressIn={() => {
-
-                    }}>
+                        favoritesDispacth({ type: 'REMOVE', payload: item.id.toString() });
+                        removeProductById(item.id);
+                        removeProductFromFavorites({ productId: item.id, userId: authState.data.authenticatedUser.id })
+                    }} style={{ alignItems: 'flex-end', margin: '5%' }}>
                         <Ionicons name="close" color={"pink"} size={20} />
                     </TouchableOpacity>
                     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                         <Text style={styles.text}>Karayip Korsanları</Text>
-                        <Text style={styles.text}>122.23 TL</Text>
                     </View>
-                    {select && <View style={{ flexDirection: 'row', margin: '5%' }}>
-                        <Button size="sm" title="-" style={{ paddingHorizontal: '6%' }} onPress={() => {
-                            updateProduct({ kullaniciId: authState.data.authenticatedUser.id, urunId: item.product.id, adet: -1 })(sepetDispacth);
-                        }} />
-                        <View style={{ justifyContent: 'center', alignItems: 'center', borderColor: 'white', borderWidth: 1, paddingHorizontal: '7%' }}>
-
-                            <Text style={[{ color: 'white' }]}>{item.adet}</Text>
-                        </View>
-                        <Button size="sm" title="+" style={{ paddingHorizontal: '6%' }} onPress={() => {
-                            updateProduct({ kullaniciId: authState.data.authenticatedUser.id, urunId: item.product.id, adet: 1 })(sepetDispacth);
-                        }} />
-                    </View>}
                 </View>
             </View>
 
@@ -91,15 +83,8 @@ function ShoppingCart({ navigation }: NavigationProps) {
                 <FlatList
                     data={data}
                     renderItem={renderİtem}
-                    keyExtractor={(item) => item.product ? item.product.id : item.urunId}
+                    keyExtractor={(item, index) => index.toString()}
                     style={{ marginHorizontal: '0.5%' }}
-                    ListEmptyComponent={() => {
-                        return (
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
-                            </View>
-                        );
-                    }}
                 />
             </CustomView>
         </Container>

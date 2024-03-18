@@ -1,12 +1,12 @@
 const favorites = (state: any, { type, payload }: any) => {
   switch (type) {
-    case "EKLE":
+    case "ADD":
       return {
         ...state,
         favorite: [...state.favorite, payload],
       };
-    case "CIKAR":
-      return { ...state, favorite: state.favorite.filter(item => item.urunId !== payload.urunId) };
+    case "REMOVE":
+      return { ...state, favorite: state.favorite.filter(item => item !=payload.toString())};
     default:
       return state;
   }

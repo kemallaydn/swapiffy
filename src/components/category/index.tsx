@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, FlatList, Image, View, ListRenderItem, StyleShe
 import CardItem, { CardProps } from '../../models/card.model';
 import styles from "./style";
 
-const Circle: React.FC<CardProps> = ({ data }) => {
+const Category: React.FC<CardProps> = ({ data }) => {
     const renderItem: ListRenderItem<CardItem> = ({ item }: any) => {
         return (
             <TouchableOpacity style={styles.circleItem}>
@@ -26,4 +26,4 @@ const Circle: React.FC<CardProps> = ({ data }) => {
     );
 };
 
-export default Circle;
+export default Category;

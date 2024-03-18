@@ -4,7 +4,7 @@ type CustomTextInputProps = {
     handleChange: (name: string, value: string) => void;
 };
 
-const CustomTextInput = ({ handleChange, placeholder,...rest }) => {
+const CustomTextInput = ({ onChangeText,handleChange, placeholder,...rest }) => {
     return (
         <TextInput
             placeholderTextColor="#7E8087"
@@ -17,7 +17,7 @@ const CustomTextInput = ({ handleChange, placeholder,...rest }) => {
             }}
             keyboardType="email-address"
             placeholder={placeholder}
-            onChangeText={(text) => handleChange('email', text)}
+            onChangeText={onChangeText}
             {...rest}
         />
     );
