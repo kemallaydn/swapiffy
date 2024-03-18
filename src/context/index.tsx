@@ -17,7 +17,16 @@ interface GlobalContextType {
 }
 
 export const GlobalContext = createContext<GlobalContextType>({
-    authState: authInitialState,
+    authState: {
+        isLoggedIn: false,
+        data: {
+            authenticatedUser: {
+                id: ""
+            }
+        },
+        error: null,
+        loading: false
+    },
     authDispatch: () => null,
     favoriteState: favoriteInitialState,
     favoritesDispacth: () => null,
