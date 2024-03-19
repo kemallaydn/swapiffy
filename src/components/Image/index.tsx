@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Modal, View, Text, Button, Image, StyleSheet } from 'react-native';
 
 import ImagePicker from 'react-native-image-crop-picker';
+import { convertToBase64 } from '../../utils/convertBase64';
+import RNFS from 'react-native-fs';
 
-const ImagePickerScreen = ({ visible, setVisible,setImageData }) => {
+const ImagePickerScreen = ({ visible, setVisible,setImageData,setContent }) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [imageContent,setImageContent] = useState([]);   
     const formatData = new FormData();
     const toggleModal = () => {
         setVisible(!visible);
@@ -18,7 +21,7 @@ const ImagePickerScreen = ({ visible, setVisible,setImageData }) => {
                 cropping: true,
             });
             setSelectedImage(image.path);
-            
+
             toggleModal();
         } catch (error) {
             console.log(error);
@@ -32,15 +35,9 @@ const ImagePickerScreen = ({ visible, setVisible,setImageData }) => {
                 height: 400,
                 cropping: true,
                 multiple: true,
+                includeBase64: true,
             });
-            setSelectedImage(image.path);
-            formatData.append('file', {
-                uri: image[0].path,
-                type: image[0].mime,
-                name: 'image.jpg',
-            });
-            console.log(formatData);
-            setImageData(formatData);
+            setImageData(image);
             toggleModal();
         } catch (error) {
             console.log(error);

@@ -8,6 +8,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         borderWidth:1,
         borderColor:'white',
+        borderRadius:20,
 
     },
     buttonText: {
