@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 
-interface DropdownProps {
-  options: string[];
-}
 
-const Dropdown: React.FC<DropdownProps> = ({ options }) => {
+const Dropdown = ({ options ,setStatus}) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [hoveredOption, setHoveredOption] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
+    setStatus(option);
     setIsOpen(false);
   };
 
