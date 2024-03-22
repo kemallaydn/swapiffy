@@ -5,7 +5,7 @@ import { Image, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, S
 import Stomp, { Client, Message } from 'stompjs';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SockJS from "sockjs-client";
-import { GlobalContext } from "../../context";
+import { GlobalContext, context } from "../../context";
 import CustomView from "../../components/customView";
 import Navbar from "../../components/navbar";
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
@@ -16,6 +16,8 @@ interface StompClientState {
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
 function Chat({ navigation }: any) {
+
+
     const onStartRecord = async () => {
         const result = await audioRecorderPlayer.startRecorder();
         audioRecorderPlayer.addRecordBackListener((e) => {
@@ -33,7 +35,7 @@ function Chat({ navigation }: any) {
     const [messages, setMessages] = useState({ senderId: "", recipientId: "", content: "" });
     const [stompClient, setStompClient] = useState<StompClientState>({ client: null, subscription: null });
     const [messageList, setMessageList] = useState([]);
-    const { authState } = useContext(GlobalContext);
+    const { authState,advertState } = useContext(GlobalContext);
     const id = authState.data.authenticatedUser.id;
     const a = async () => {
         if (Platform.OS === 'android') {
@@ -67,7 +69,7 @@ function Chat({ navigation }: any) {
     }
     useEffect(() => {
         a();
-        setMessages({ ...messages, senderId: id, recipientId: id == 1 ? "2" : "1" })
+        setMessages({ ...messages, senderId: id, recipientId: advertState.data.userid})
         const initializeWebSocket = async () => {
             const socket = new SockJS('http://192.168.1.102:8080/ws');
             const client = Stomp.over(socket);
@@ -103,8 +105,11 @@ function Chat({ navigation }: any) {
 
         return (
 
-            <View style={{ alignItems: item.senderId != id ? "flex-start" : "flex-end", paddingLeft: item.senderId != id ? 0 : 60, paddingRight: item.senderId == id ? 0 : 80 }}>
-                <Text style={{ backgroundColor: 'white', padding: 5, borderRadius: 10, margin: 15 }}>{item.content}</Text>
+            <View style={{alignItems: item.senderId != id ? "flex-start" : "flex-end", paddingLeft: item.senderId != id ? 0 : 60, paddingRight: item.senderId == id ? 0 : 80 }}>
+                <View style={{ backgroundColor:"#4D4D4D",  borderRadius:10, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',margin:15}}>
+                <Text style={{ margin: 10 }}>{item.content}</Text>
+
+                </View>
             </View>
         )
     }

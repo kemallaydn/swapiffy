@@ -10,7 +10,7 @@ import { addProductToFavorites, getFavoritesAdvert, removeProductFromFavorites }
 import AdvertModel from '../advertModel';
 
 const Advert: React.FC<CardProps> = ({ data }) => {
-    const { favoritesDispacth, favoriteState: { favorite }, authState, sepetDispacth } = context();
+    const { favoritesDispacth, favoriteState: { favorite }, authState, sepetDispacth,advertDispacth} = context();
     const [visible, setVisible] = useState(false);
     const [modalData, setModalData] = useState({});
     useEffect(() => {
@@ -50,8 +50,11 @@ const Advert: React.FC<CardProps> = ({ data }) => {
             <View style={styles.container}>
                 <AdvertModel onClose={()=>setVisible(!visible)} visible={visible}/>
                 <View style={styles.imageContent}>
-                    <Image source={{ uri: item.image }} style={styles.image} />
-                    <TouchableOpacity style={{ position: 'absolute', left: '45%', bottom: 5 }} onPress={() => sepetekle(item)}>
+                    <Image source={{ uri: item.imageurl }} style={styles.image} />
+                    <TouchableOpacity style={{ position: 'absolute', left: '45%', bottom: 5 }} onPress={() => {
+                        advertDispacth({type:'ADD',payload:item})
+                        sepetekle(item)
+                    }}>
                         <Ionicons name='repeat' size={25} color="white" />
                     </TouchableOpacity>
                 </View>

@@ -3,7 +3,7 @@ import axiosInstance from '../utils/axiosInstance';
 
 const getAdvertisement = async () => {
     try {
-        const response = await axiosInstance.get('product/all');
+        const response = await axiosInstance.get('v1/advertisements/getAllAdvertisement');
         return response.data;
     } catch (error) {
         console.error(error);
