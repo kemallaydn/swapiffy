@@ -1,6 +1,12 @@
 export default {
     isLoggedIn: false,
-    data: {},
+    userDetails: {
+      id: null,
+      name: null,
+      email: null,
+      phone: null,
+      avatar: null,
+    },
     error: null,
     loading: false,
   };

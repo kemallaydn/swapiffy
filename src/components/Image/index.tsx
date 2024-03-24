@@ -5,11 +5,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { convertToBase64 } from '../../utils/convertBase64';
 import RNFS from 'react-native-fs';
 
-const ImagePickerScreen = ({ visible, setVisible,setImageData,setContent }) => {
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [imageContent,setImageContent] = useState([]);   
-    const formatData = new FormData();
+const ImagePickerScreen = ({ visible, setVisible,setImageData }:any) => {
     const toggleModal = () => {
         setVisible(!visible);
     };
@@ -18,10 +14,11 @@ const ImagePickerScreen = ({ visible, setVisible,setImageData,setContent }) => {
             const image = await ImagePicker.openCamera({
                 width: 300,
                 height: 400,
+                multiple: true,
                 cropping: true,
+                includeBase64: true,
             });
-            setSelectedImage(image.path);
-
+            setImageData(image);
             toggleModal();
         } catch (error) {
             console.log(error);
@@ -43,23 +40,15 @@ const ImagePickerScreen = ({ visible, setVisible,setImageData,setContent }) => {
             console.log(error);
         }
     };
-
     return (
         <View style={styles.container}>
             <Modal visible={visible} animationType="slide" transparent={true} onRequestClose={toggleModal} >
                 <View style={styles.modalContainer}>
-
                     <Button title="Kamerayı Aç" onPress={openCamera} color={"white"}/>
                     <Button title="Galeriden Seç" onPress={openGallery} color={"white"} />
                     <Button title="Kapat" onPress={toggleModal} color={"white"} />
-
                 </View>
             </Modal>
-            {selectedImage && (
-                <View>
-                    <Image source={{ uri: selectedImage }} style={{ width: 200, height: 300 }} />
-                </View>
-            )}
         </View>
     );
 };

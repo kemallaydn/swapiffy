@@ -21,9 +21,7 @@ function SignUp({ navigation }: any) {
     const handleSignUp = () => {
         axios.post("http://localhost:8080/v1/auth/register", formData).then(res => {
             navigation.navigate("account")
-            console.log(res.status)
         }).catch(err => {
-            console.log(err.response.data)
         })
     };
     return (

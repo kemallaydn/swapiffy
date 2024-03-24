@@ -10,7 +10,8 @@ import { useNavigation } from '@react-navigation/native';
 const AdvertModel = ({ visible, onClose },props:any) => {
     const  navigation  = useNavigation();
     const [modalVisible, setModalVisible] = useState(visible);
-    const { favoritesDispacth, favoriteState: { favorite }, authState, sepetDispacth,advertState,} = context();
+    const { advertState} = context();
+
     return (
         <Modal
             animationType="slide"

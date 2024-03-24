@@ -13,7 +13,7 @@ import {
         return {
           ...state,
           loading: false,
-          data: payload,
+          userDetails: payload,
           error:null,
         };
   
@@ -21,7 +21,7 @@ import {
         return {
           ...state,
           loading: false,
-          data: payload,
+          userDetails: payload,
           isLoggedIn: true,
          
         };
@@ -30,7 +30,7 @@ import {
         return {
           ...state,
           loading: false,
-          data: null,
+          userDetails: null,
           isLoggedIn: false,
         };
   
@@ -45,7 +45,7 @@ import {
         return {
           ...state,
           loading: false,
-          data: null,
+          userDetails: null,
           error: null,
         };
   

@@ -7,11 +7,14 @@ export default StyleSheet.create({
         paddingBottom: '2%',
     },
     circleItem: {
-        backgroundColor: 'black',
-        paddingHorizontal: 15,
-        paddingVertical: 6,
-        borderRadius: 5,
-        marginHorizontal: 3
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        padding: 5,
+        borderRadius: 70,
+        marginHorizontal: 3,
+        height: 70,
+        width: 70,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     circleItemText: {
         color: 'white',

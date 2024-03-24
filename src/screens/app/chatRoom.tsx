@@ -1,11 +1,13 @@
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Container from "../../components/container";
 import Navbar from "../../components/navbar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomView from "../../components/customView";
 import { useEffect, useState } from "react";
+import { context } from "../../context";
 function ChatRoom(props: any) {
     const [currentTime, setCurrentTime] = useState(new Date());
+    const {authState}=context();
     const { navigation } = props;
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -23,7 +25,12 @@ function ChatRoom(props: any) {
                 </View>
                 <ScrollView>
                     <TouchableOpacity style={{ flexDirection: 'row',backgroundColor:"#7E8087",padding:'2%',borderRadius:20 }} onPress={()=>{
-                        navigation.navigate("chat")
+                        if(authState.isLoggedIn){
+
+                            navigation.navigate("chat")
+                        }else{
+                            Alert.alert("Seni şirkete alan aklımı sikim")
+                        }
                     }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center', height: 50, width: 50 }}>
                             <Image source={{ uri: "https://picsum.photos/200/300?grayscale" }} style={{
@@ -31,8 +38,8 @@ function ChatRoom(props: any) {
                             }} />
                         </View>
                         <View style={{ flex: 5, justifyContent: 'center', paddingLeft: '5%' }}>
-                            <Text style={{ fontWeight: "600", fontSize: 20 }}>Kemal</Text>
-                            <Text style={{ fontWeight: "300" }}>Selam</Text>
+                            <Text style={{ fontWeight: "600", fontSize: 20 }}>Ali Bey</Text>
+                            <Text style={{ fontWeight: "300" }}>Tüm şirkete mail mi atılır mk</Text>
                         </View>
                         <View style={{justifyContent:"center",alignItems:'center'}}>
                             <Text>{formattedTime}</Text>

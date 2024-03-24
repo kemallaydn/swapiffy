@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Container from "../../components/container";
-import getAdvertisement from "../../services/getAdvertiment";
 import Advert from "../../components/advert";
 import Category from "../../components/category";
 import { StyleSheet, Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Geolocation from '@react-native-community/geolocation';
 import MapView, { Marker } from 'react-native-maps';
-import useLocation from "../../utils/getLocation";
+import {useLocation} from "../../utils/getLocation";
 import LocationMarker,{LocationBar} from "../../components/location";
+import {context} from "../../context";
 
 
 function Home() {
-  const [data, setData] = useState([]);
-  async function getAdvert() {
-    setData(await getAdvertisement())
-  }
+  const {advertState:{allAdverts}}=context();
+  
   useEffect(() => {
-    getAdvert();
+    const getLocations = async() => {
+     const response = await useLocation();
+     console.log(response);
+    }
+    getLocations();
   }, [])
   return (
     <Container isScroll={false}>
@@ -28,8 +30,8 @@ function Home() {
           <Ionicons name="notifications" size={20} color="black" />
         </View>
       </View>
-      <Category data={data} />
-      <Advert data={data} />
+      <Category data={allAdverts} />
+      <Advert data={allAdverts} />
     </Container>
   )
 }

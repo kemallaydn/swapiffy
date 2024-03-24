@@ -1,59 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Container from "../../components/container";
 import styles from "../../styles/app/shoppingcart"
-import { Image, TouchableOpacity, View } from "react-native";
+import { Alert, Image, TouchableOpacity, View } from "react-native";
 import Button from "../../components/button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Text } from "react-native";
 import NavigationProps from "../../models/navigation.model";
-import Navbar from "../../components/navbar";
 import CustomView from "../../components/customView";
 import { FlatList } from "react-native";
-import getData from "../../utils/getAdvertisement";
 import { context } from "../../context";
-import { useFocusEffect } from "@react-navigation/native";
-import { deleteProduct, updateProduct } from "../../context/action/addProduct";
-import { findByIdProduct } from '../../services/getAdvertiment';
-import { removeProductFromFavorites } from "../../services/favorites";
+import { removeProductFromFavorites } from "../../services/Favorites";
 
 
 function ShoppingCart({ navigation }: NavigationProps) {
-    const { favoriteState, favoritesDispacth, authState } = context();
+    const {advertDispacth,  authState:{userDetails:{id}} ,advertState:{favoriteAdverts}} = context();
     const [select, setSelect] = useState(true);
-    const [data, setData] = useState([]);
 
-    useEffect(() => {
-        const getProduct = async () => {
-            for (const element of favoriteState.favorite) {
-                const response = await findByIdProduct(element.toString());
-                setData(prev => [...prev, response]);
-            }
-        }
-        getProduct();
-    }, []);
-    const removeProductById = (productIdToRemove) => {
-        // Veriyi güncellemeden önce mevcut veriyi kopyalayın
-        const newData = [...data];
-        // newData içinde productIdToRemove'a sahip olan öğeyi filtreleyerek kaldırın
-        const updatedData = newData.filter(item => item.id !== productIdToRemove);
-      
-        // setData ile güncellenmiş veriyi state'e atayın
-        setData(updatedData);
-      };
-      
+    const removeFromFavorites = (id:any) => {
+        removeProductFromFavorites({productId: id, userId: id })(advertDispacth)((res)=>{
+            Alert.alert(res.split(",")[0],res.split(",")[1])
+        })
+    }
 
-    const renderİtem = ({ item }) => {
+    const renderİtem = ({ item }:any) => {
         return (
             <View style={styles.contentShop}>
                 <View style={styles.context}>
-                    <Image source={{ uri: item.product ? item.product.image : item.image }} style={styles.image} />
+                    <Image source={{ uri: item.imageurl}} style={styles.image} />
                 </View>
                 <View style={styles.context}>
-                    <TouchableOpacity onPress={() => {
-                        favoritesDispacth({ type: 'REMOVE', payload: item.id.toString() });
-                        removeProductById(item.id);
-                        removeProductFromFavorites({ productId: item.id, userId: authState.data.authenticatedUser.id })
-                    }} style={{ alignItems: 'flex-end', margin: '5%' }}>
+                    <TouchableOpacity onPress={() => removeFromFavorites(item.id)} style={{ alignItems: 'flex-end', margin: '5%' }}>
                         <Ionicons name="close" color={"pink"} size={20} />
                     </TouchableOpacity>
                     <View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -81,9 +57,9 @@ function ShoppingCart({ navigation }: NavigationProps) {
                         }} />
                 </View>
                 <FlatList
-                    data={data}
+                    data={favoriteAdverts}
                     renderItem={renderİtem}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={({id}) => id}
                     style={{ marginHorizontal: '0.5%' }}
                 />
             </CustomView>

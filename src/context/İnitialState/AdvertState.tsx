@@ -1,5 +1,7 @@
 export default {
-    dataa: {},
-    error: null,
-    loading: false,
+    allAdverts: [],
+    selectAdvert: null,
+    addAdvert: null,
+    favoriteAdverts: null,
+    favoriteAdvertsId: null
   };

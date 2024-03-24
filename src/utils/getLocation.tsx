@@ -1,18 +1,21 @@
 import Geolocation from '@react-native-community/geolocation';
 
-const useLocation = () => {
-    let location: { latitude: number; longitude: number } | null = null;
-
-    Geolocation.getCurrentPosition(
-        (position: { coords: { latitude: any; longitude: any } }) => {
+export const useLocation = () => {
+    return new Promise((resolve, reject) => {
+        Geolocation.getCurrentPosition(
+        async (position: { coords: { latitude: any; longitude: any; }; }) => {
+            try {
             const { latitude, longitude } = position.coords;
-            location = { latitude, longitude };
+            resolve({ latitude, longitude });
+            } catch (error) {
+            reject(error);
+            }
         },
-        (error: any) => console.log(error),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-
-    return location;
+        (error: { message: React.SetStateAction<null>; }) => {
+            reject(error);
+        },
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+        );
+    });
 };
 
-export default useLocation;

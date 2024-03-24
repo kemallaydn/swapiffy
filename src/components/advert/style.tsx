@@ -4,15 +4,13 @@ export default StyleSheet.create({
     container: {
         borderColor: "white",
         width: '40%',
-      marginBottom: '5%',
+        marginBottom: '5%',
         paddingHorizontal: '1%',
         flex: 1,
-        
+
     },
     buttonText: {
-        fontWeight: '400',
-        textAlign: "center",
-       
+        fontWeight: '600',
         fontSize: 12,
         color: 'white'
     },
@@ -24,7 +22,8 @@ export default StyleSheet.create({
     image: {
         height: '100%',
         width: '100%',
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        borderRadius: 10,
     },
     footer: {
         flex: 1,

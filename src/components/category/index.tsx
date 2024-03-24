@@ -7,21 +7,20 @@ const Category: React.FC<CardProps> = ({ data }) => {
     const renderItem: ListRenderItem<CardItem> = ({ item }: any) => {
         return (
             <TouchableOpacity style={styles.circleItem}>
-                <Text style={styles.circleItemText}>{item.price}</Text>
+                <Text style={styles.circleItemText}>{item.category}</Text>
             </TouchableOpacity>
         );
     };
-
     return (
-
             <FlatList
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={({ id }) => id.toString()}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                style={{paddingHorizontal:'3%',marginRight:'3.5%'}}
+                style={{marginHorizontal:'3%',paddingBottom:'18%'}}
             />
+
 
     );
 };

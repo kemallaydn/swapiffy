@@ -14,14 +14,13 @@ const LocationMarker = () => {
     useEffect(() => {
         Geocoder.init("AIzaSyBT5Ev7MDzWLgeLhkzXKNeQcMGtpkuB6Dw"); // use a valid API key
         const getLocation = () => {
-            watchID = Geolocation.watchPosition(
+            Geolocation.getCurrentPosition(
                 async (position: { coords: { latitude: any; longitude: any; }; }) => {
                     try {
                         const { latitude, longitude } = position.coords;
                         setLocation({ latitude, longitude });
                         const addressResponse = await Geocoder.from({ latitude, longitude });
                         const formattedAddress = addressResponse.results[0].formatted_address;
-                        console.log(formattedAddress.split(',')[1]);
                         setAddress(formattedAddress);
                     } catch (error) {
                         setError(error.message);
@@ -37,7 +36,6 @@ const LocationMarker = () => {
         getLocation();
         // Clean-up function: cancel the subscription when the component is unmounted
         return () => {
-            Geolocation.clearWatch(watchID);
         };
     }, []);
 
@@ -78,7 +76,7 @@ export const LocationBar = ()=>{
     useEffect(() => {
         Geocoder.init("AIzaSyBT5Ev7MDzWLgeLhkzXKNeQcMGtpkuB6Dw"); // use a valid API key
         const getLocation = () => {
-            watchID = Geolocation.watchPosition(
+         Geolocation.getCurrentPosition(
                 async (position: { coords: { latitude: any; longitude: any; }; }) => {
                     try {
                         const { latitude, longitude } = position.coords;
@@ -100,13 +98,17 @@ export const LocationBar = ()=>{
         getLocation();
         // Clean-up function: cancel the subscription when the component is unmounted
         return () => {
-            Geolocation.clearWatch(watchID);
+
         };
     }, []);
     return(
         <View style={{flexDirection:'row',alignItems:'center',padding:'5%'}}>
             <Ionicons name="location" size={15} color="black" />
-            <Text>{address.split(",")[0]} , {address.split(",")[1]}</Text>
+            {address 
+                ? <Text>{address.split(",")[0]} , {address.split(",")[1]}</Text> 
+                : <Text>Yükleniyor...</Text>
+            }
+
         </View>
     )
 }
