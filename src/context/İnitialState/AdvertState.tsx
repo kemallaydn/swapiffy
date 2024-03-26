@@ -3,5 +3,6 @@ export default {
     selectAdvert: null,
     addAdvert: null,
     favoriteAdverts: null,
-    favoriteAdvertsId: null
+    favoriteAdvertsId: null,
+    userAdverts: null
   };

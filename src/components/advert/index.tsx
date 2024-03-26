@@ -9,10 +9,11 @@ import AdvertModel from '../advertModel';
 import {addSelectedAdvertToContext} from '../../context/action/advert';
 
 const Advert = () => {
-    const { authState:{userDetails:{id},isLoggedIn},advertDispacth,advertState:{allAdverts,favoriteAdverts}} = context();
+    const { authState:{userDetails:{id},isLoggedIn},advertDispacth,advertState:{allAdverts,favoriteAdverts,userAdverts}} = context();
     const [visible, setVisible] = useState(false);
    
     const favoriekle = (product:any) => {
+
         addProductToFavorites({userId:id,productId:product.id})(isLoggedIn)(advertDispacth)((res:any)=>{
             Alert.alert(res.split(",")[0],res.split(",")[1])
         });
@@ -25,7 +26,8 @@ const Advert = () => {
     const closeModal = () => {
         setVisible(false);
     }
-    const renderItem: ListRenderItem<CardItem> = useMemo(() => ({ item }: any) => {
+    console.log(userAdverts);
+    const renderItem= useMemo(() => ({ item }: any) => {
         return (
             <View style={styles.container}>
                 <View style={styles.imageContent}>
@@ -53,12 +55,13 @@ const Advert = () => {
             <FlatList
                 data={allAdverts}
                 renderItem={renderItem}
-                keyExtractor={({ id }) => id.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
-                style={{ marginHorizontal: '3%', paddingTop: '5%' }}
+                style={{ marginHorizontal: '3%'}}
                 initialNumToRender={10} // İlk başta 10 öğe render edilecek
                 onEndReachedThreshold={0.5}
+                scrollEnabled={false}
             />
             {visible && (
                 <AdvertModel onClose={closeModal} visible={visible} />

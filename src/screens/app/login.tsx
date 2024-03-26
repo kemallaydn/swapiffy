@@ -8,6 +8,7 @@ import CustomView from "../../components/customView";
 import { Login } from "../../context/action/Login";
 import { getFavoritesAdvert } from "../../services/Favorites";
 import { GET_FAVORITES_ADVERTS } from "../../Constants/actionTypes";
+import { getByUserIdAdvert } from "../../services/Advertisement";
 function Account({navigation}:any){
     const {authDispatch,authState,advertDispacth}=context();
     const [formData, setFormData] = useState({
@@ -22,6 +23,8 @@ function Account({navigation}:any){
         Login(formData)(authDispatch)(async(res)=>{
             const advert = await getFavoritesAdvert(res);
             advertDispacth({type:GET_FAVORITES_ADVERTS,payload:advert})
+            const userAdvert = await getByUserIdAdvert(res);
+            advertDispacth({type:"GET_USER_ADVERTS",payload:userAdvert})
         });
     }
     return(

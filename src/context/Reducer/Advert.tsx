@@ -1,4 +1,4 @@
-import { GET_ALL_ADVERTS, CLEAR_SELECTED_ADVERT, SELECT_ADVERT, ADD_ADVERT, GET_FAVORITES_ADVERTS, ADD_FAVORITES_ADVERTS, REMOVE_FAVORITES_ADVERTS, GET_FAVORITES_ADVERTS_ID, GET_FAVORITES_ADVERTS_BY_ID } from '../../Constants/actionTypes';
+import { GET_ALL_ADVERTS, CLEAR_SELECTED_ADVERT, SELECT_ADVERT, ADD_ADVERT, GET_FAVORITES_ADVERTS, ADD_FAVORITES_ADVERTS, REMOVE_FAVORITES_ADVERTS, GET_FAVORITES_ADVERTS_ID, GET_FAVORITES_ADVERTS_BY_ID, GET_USER_ADVERTS } from '../../Constants/actionTypes';
 
 const Advert = (state: any, { type, payload }: any) => {
     switch (type) {
@@ -37,6 +37,11 @@ const Advert = (state: any, { type, payload }: any) => {
             ...state,
             favoriteAdverts: state.favoriteAdverts.filter((item: any) => item.id !== payload)
         }
+        case GET_USER_ADVERTS:
+          return {
+              ...state,
+              userAdverts: payload
+          }
       case CLEAR_SELECTED_ADVERT:
         return {
           ...state,

@@ -13,16 +13,17 @@ import { removeProductFromFavorites } from "../../services/Favorites";
 
 
 function ShoppingCart({ navigation }: NavigationProps) {
-    const {advertDispacth,  authState:{userDetails:{id}} ,advertState:{favoriteAdverts}} = context();
+    const {advertDispacth,  authState:{userDetails} ,advertState:{favoriteAdverts}} = context();
     const [select, setSelect] = useState(true);
 
-    const removeFromFavorites = (id:any) => {
-        removeProductFromFavorites({productId: id, userId: id })(advertDispacth)((res)=>{
+    const removeFromFavorites = (productid:any) => {
+        removeProductFromFavorites({productId: productid, userId: userDetails.id })(advertDispacth)((res)=>{
             Alert.alert(res.split(",")[0],res.split(",")[1])
         })
     }
 
     const renderİtem = ({ item }:any) => {
+
         return (
             <View style={styles.contentShop}>
                 <View style={styles.context}>

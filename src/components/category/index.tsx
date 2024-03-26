@@ -2,8 +2,10 @@ import React from 'react';
 import { TouchableOpacity, Text, FlatList, Image, View, ListRenderItem, StyleSheet } from 'react-native';
 import CardItem, { CardProps } from '../../models/card.model';
 import styles from "./style";
+import { context } from '../../context';
 
-const Category: React.FC<CardProps> = ({ data }) => {
+const Category = () => {
+    const {advertState:{allAdverts}}=context();
     const renderItem: ListRenderItem<CardItem> = ({ item }: any) => {
         return (
             <TouchableOpacity style={styles.circleItem}>
@@ -12,14 +14,15 @@ const Category: React.FC<CardProps> = ({ data }) => {
         );
     };
     return (
+        <View style={styles.container}>
             <FlatList
-                data={data}
+                data={allAdverts}
                 renderItem={renderItem}
                 keyExtractor={({ id }) => id.toString()}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                style={{marginHorizontal:'3%',paddingBottom:'18%'}}
             />
+        </View>
 
 
     );

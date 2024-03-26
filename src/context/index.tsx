@@ -22,7 +22,7 @@ interface GlobalContextType {
     favoritesDispacth: Dispatch<any>;
     sepetState: { /* ... */ };
     sepetDispacth: Dispatch<any>;
-    advertState:{allAdverts:[],favoriteAdverts:[]};
+    advertState:{allAdverts:[],favoriteAdverts:[],selectAdvert:null,userAdverts:[]};
     advertDispacth:Dispatch<any>;
 }
 
@@ -46,7 +46,9 @@ export const GlobalContext = createContext<GlobalContextType>({
     sepetDispacth: () => null,
     advertState: {
         allAdverts: [],
-        favoriteAdverts: []
+        favoriteAdverts: [],
+        selectAdvert: null,
+        userAdverts:[]
     },
     advertDispacth:()=>null
 });

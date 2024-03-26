@@ -30,7 +30,6 @@ import {
         return {
           ...state,
           loading: false,
-          userDetails: null,
           isLoggedIn: false,
         };
   
@@ -44,6 +43,7 @@ import {
       case CLEAR_AUTH_STATE:
         return {
           ...state,
+          
           loading: false,
           userDetails: null,
           error: null,

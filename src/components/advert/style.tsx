@@ -7,7 +7,6 @@ export default StyleSheet.create({
         marginBottom: '5%',
         paddingHorizontal: '1%',
         flex: 1,
-
     },
     buttonText: {
         fontWeight: '600',

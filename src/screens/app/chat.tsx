@@ -36,7 +36,7 @@ function Chat({ navigation }: any) {
     const [stompClient, setStompClient] = useState<StompClientState>({ client: null, subscription: null });
     const [messageList, setMessageList] = useState([]);
     const { authState,advertState } = useContext(GlobalContext);
-    const id = authState.data.authenticatedUser.id;
+    const id = authState.userDetails.id;
     const a = async () => {
         if (Platform.OS === 'android') {
             try {
@@ -69,7 +69,7 @@ function Chat({ navigation }: any) {
     }
     useEffect(() => {
         a();
-        setMessages({ ...messages, senderId: id, recipientId: advertState.data.userid})
+        setMessages({ ...messages, senderId: id, recipientId: "1"})
         const initializeWebSocket = async () => {
             const socket = new SockJS('http://192.168.1.102:8080/ws');
             const client = Stomp.over(socket);
